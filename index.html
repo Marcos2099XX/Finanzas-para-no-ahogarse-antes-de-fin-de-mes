@@ -3,14 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Curso gratuito de finanzas personales para jóvenes. Aprende a presupuestar, identificar gastos hormiga y ahorrar." />
   <title>Finanzas para no ahogarse antes de fin de mes</title>
+
+  <!-- Favicon para evitar errores en consola -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💸</text></svg>">
+
+  <!-- Fuentes e Iconos -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
+    /* --- SISTEMA DE VARIABLES (Optimizado) --- */
     :root {
+      /* Tema Oscuro (Por defecto) */
       --bg: #0b1020;
       --card: #10172a;
       --muted: #c6cce2;
@@ -35,32 +43,11 @@
       --card-border: rgba(124,156,255,.18);
       --card-border-2: rgba(124,156,255,.2);
       --video-bg: #000;
-      color-scheme: light dark;
+      color-scheme: dark;
     }
 
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #f5f7fb;
-        --card: #ffffff;
-        --muted: #5a647d;
-        --text: #101423;
-        --shadow: 0 10px 30px rgba(16,20,35,.08);
-        --chip-bg: rgba(124,156,255,.12);
-        --pill-bg: #f1f5f9;
-        --separator: #e6eaf5;
-        --surface-1: #f8fafc;
-        --header-glow: rgba(124,156,255,.14);
-        --tab-border: rgba(16,20,35,.12);
-        --progress-bg: rgba(124,156,255,.22);
-        --link-btn-border: rgba(124,156,255,.35);
-        --link-btn-hover: rgba(124,156,255,.12);
-        --card-border: rgba(16,20,35,.08);
-        --card-border-2: rgba(16,20,35,.1);
-        --video-bg: #f0f3fa;
-      }
-    }
-
-    :root[data-theme="light"] {
+    /* Tema Claro (Se activa con data-theme="light") */
+    [data-theme="light"] {
       --bg: #f5f7fb;
       --card: #ffffff;
       --muted: #5a647d;
@@ -78,34 +65,16 @@
       --card-border: rgba(16,20,35,.08);
       --card-border-2: rgba(16,20,35,.1);
       --video-bg: #f0f3fa;
+      color-scheme: light;
     }
 
-    :root[data-theme="dark"] {
-      --bg: #0b1020;
-      --card: #10172a;
-      --muted: #c6cce2;
-      --text: #e9ecf8;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --chip-bg: rgba(124,156,255,.14);
-      --pill-bg: rgba(15,23,42,.5);
-      --separator: rgba(15,23,42,.8);
-      --surface-1: rgba(15,23,42,.7);
-      --header-glow: rgba(124,156,255,.18);
-      --tab-border: rgba(124,156,255,.25);
-      --progress-bg: rgba(124,156,255,.15);
-      --link-btn-border: rgba(124,156,255,.35);
-      --link-btn-hover: rgba(124,156,255,.16);
-      --card-border: rgba(124,156,255,.18);
-      --card-border-2: rgba(124,156,255,.2);
-      --video-bg: #000;
-    }
-
+    /* --- ESTILOS GENERALES --- */
     * { box-sizing: border-box; }
     html, body { height: 100%; }
 
     body {
       margin: 0;
-      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-family: "Inter", system-ui, sans-serif;
       background:
         radial-gradient(1200px 600px at 80% -10%, rgba(124,156,255,.25), transparent 60%),
         radial-gradient(900px 500px at -10% 10%, rgba(34,197,94,.18), transparent 55%),
@@ -113,6 +82,7 @@
       color: var(--text);
       padding: 24px;
       line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -136,12 +106,11 @@
       cursor: pointer;
       font-weight: 600;
       font-size: 0.9rem;
+      transition: all 0.2s;
     }
+    .theme-toggle:hover { opacity: 0.9; transform: scale(1.02); }
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+    .container { max-width: 1100px; margin: 0 auto; }
 
     .header {
       display: grid;
@@ -152,9 +121,7 @@
     }
 
     @media (max-width: 800px) {
-      .header {
-        grid-template-columns: minmax(0,1fr);
-      }
+      .header { grid-template-columns: 1fr; }
     }
 
     .course-main {
@@ -175,7 +142,6 @@
       color: var(--primary);
       font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: .3px;
       margin-bottom: 8px;
     }
 
@@ -185,11 +151,7 @@
       font-weight: 800;
     }
 
-    .subtitle {
-      margin: 0;
-      color: var(--muted);
-      font-size: .98rem;
-    }
+    .subtitle { margin: 0; color: var(--muted); font-size: .98rem; }
 
     .meta-row {
       display: flex;
@@ -208,90 +170,9 @@
       border-radius: 999px;
       background: var(--pill-bg);
     }
+    .meta-pill i { color: var(--primary); font-size: 0.9rem; }
 
-    .meta-pill i {
-      color: var(--primary);
-      font-size: 0.9rem;
-    }
-
-    .course-side {
-      background: var(--card);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--card-border-2);
-      box-shadow: var(--shadow);
-      padding: 18px 20px;
-    }
-
-    .video-wrapper {
-      position: relative;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      background: var(--video-bg);
-      aspect-ratio: 16/9;
-    }
-
-    .video-wrapper iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .progress-label {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .stars {
-      color: #fbbf24;
-      font-size: 0.9rem;
-    }
-
-    .progress-bar {
-      height: 10px;
-      background: var(--progress-bg);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-bottom: 8px;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 4%; /* ejemplo: 1.63% completado aprox */
-      background: linear-gradient(90deg, var(--primary), var(--primary-strong));
-      border-radius: 999px;
-    }
-
-    .continue-btn {
-      margin-top: 14px;
-      width: 100%;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      padding: 11px 16px;
-      border-radius: var(--radius-sm);
-      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.95rem;
-      box-shadow: 0 6px 16px var(--ring);
-      transition: all .2s ease;
-    }
-
-    .continue-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px var(--ring);
-      filter: brightness(1.05);
-    }
-
+    /* --- TABS --- */
     .tabs {
       margin-top: 10px;
       display: flex;
@@ -310,35 +191,23 @@
       position: relative;
     }
 
-    .tab-btn.active {
-      color: var(--text);
-    }
-
+    .tab-btn.active { color: var(--text); }
     .tab-btn.active::after {
       content: "";
       position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -1px;
+      left: 0; right: 0; bottom: -1px;
       height: 2px;
       border-radius: 999px;
       background: linear-gradient(90deg, var(--primary), var(--primary-strong));
     }
 
-    .tab-content {
-      margin-top: 18px;
-    }
+    .tab-content { margin-top: 18px; }
+    .tab-panel { display: none; animation: fadeIn 0.3s ease; }
+    .tab-panel.active { display: block; }
 
-    .tab-panel {
-      display: none;
-    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-    .tab-panel.active {
-      display: block;
-    }
-
-    /* Clases */
-
+    /* --- MÓDULOS (Acordeón) --- */
     .module {
       margin-bottom: 18px;
       border-radius: var(--radius-md);
@@ -354,6 +223,7 @@
       align-items: center;
       cursor: pointer;
       background: linear-gradient(90deg, var(--header-glow), transparent);
+      user-select: none;
     }
 
     .module-title {
@@ -362,42 +232,28 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      margin: 0;
     }
-
-    .module-title span {
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .module-toggle-icon {
-      color: var(--muted);
-      transition: transform .2s ease;
-    }
+    .module-title span { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
 
     .module-toggle {
       background: transparent;
       border: 0;
-      color: inherit;
+      color: var(--muted);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       padding: 4px;
+      transition: transform 0.2s ease;
     }
-
-    .module.open .module-toggle-icon {
-      transform: rotate(90deg);
-    }
+    .module.open .module-toggle { transform: rotate(90deg); }
 
     .class-list {
       border-top: 1px solid var(--separator);
       display: none;
     }
-
-    .module.open .class-list {
-      display: block;
-    }
+    .module.open .class-list { display: block; }
 
     .class-item {
       display: grid;
@@ -408,14 +264,10 @@
       font-size: 0.9rem;
       border-top: 1px solid var(--separator);
     }
-
-    .class-item:first-child {
-      border-top: none;
-    }
+    .class-item:first-child { border-top: none; }
 
     .class-left-icon {
-      width: 26px;
-      height: 26px;
+      width: 26px; height: 26px;
       border-radius: 999px;
       background: var(--chip-bg);
       display: flex;
@@ -425,26 +277,10 @@
       font-size: 0.8rem;
     }
 
-    .class-main {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .class-title {
-      font-weight: 500;
-    }
-
-    .class-meta {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .class-duration {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-right: 8px;
-    }
+    .class-main { display: flex; flex-direction: column; gap: 2px; }
+    .class-title { font-weight: 500; }
+    .class-meta { font-size: 0.78rem; color: var(--muted); }
+    .class-duration { font-size: 0.8rem; color: var(--muted); margin-right: 8px; }
 
     .class-link-btn {
       padding: 6px 10px;
@@ -459,110 +295,46 @@
       cursor: pointer;
       transition: all .15s ease;
     }
+    .class-link-btn:hover { background: var(--link-btn-hover); }
+    .class-link-btn[disabled] { opacity: .6; cursor: not-allowed; filter: grayscale(1); }
 
-    .class-link-btn:hover {
-      background: var(--link-btn-hover);
-    }
-
-    .class-link-btn[disabled], .class-link-btn[aria-disabled="true"] {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-
-    .class-video {
-      grid-column: 1 / -1;
-    }
-
+    .class-video { grid-column: 1 / -1; margin-top: 8px; }
     .class-video .video-aspect {
       position: relative;
-      padding-top: 56.25%;
-    }
-
-    .class-video iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
+      padding-top: 56.25%; /* 16:9 */
+      background: var(--video-bg);
+      border-radius: var(--radius-sm);
       overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
     }
+    .class-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
     @media (max-width: 640px) {
-      .class-item {
-        grid-template-columns: minmax(0,1fr);
-      }
-      .class-left-icon {
-        display: none;
-      }
-      .class-item > div:last-child {
-        margin-top: 8px;
-      }
+      .class-item { grid-template-columns: minmax(0,1fr); }
+      .class-left-icon { display: none; }
+      .class-item > div:last-child { margin-top: 8px; display: flex; justify-content: space-between; width: 100%; align-items: center; }
     }
 
-    /* SOBRE EL CURSO */
-
-    .section-title {
-      font-size: 1.05rem;
-      margin: 10px 0 6px;
-      font-weight: 700;
+    /* --- SECCIÓN SOBRE EL CURSO --- */
+    .section-title { font-size: 1.05rem; margin: 15px 0 8px; font-weight: 700; color: var(--text); }
+    .requirement-list, .learn-list { list-style: none; padding-left: 0; margin: 4px 0 14px; }
+    .requirement-list li, .learn-list li {
+      display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px;
+      font-size: 0.93rem; color: var(--muted);
     }
-
-    .requirement-list,
-    .learn-list {
-      list-style: none;
-      padding-left: 0;
-      margin: 4px 0 14px;
-    }
-
-    .requirement-list li,
-    .learn-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 6px;
-      font-size: 0.93rem;
-      color: var(--muted);
-    }
-
-    .requirement-list i,
-    .learn-list i {
-      margin-top: 3px;
-      color: var(--primary);
-      font-size: 0.82rem;
-      flex-shrink: 0;
-    }
-
-    .learn-list i {
-      color: var(--success);
-    }
-
-    .paragraph {
-      font-size: 0.94rem;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
-
+    .requirement-list i, .learn-list i { margin-top: 4px; color: var(--primary); font-size: 0.82rem; flex-shrink: 0; }
+    .learn-list i { color: var(--success); }
+    .paragraph { font-size: 0.94rem; color: var(--muted); margin-bottom: 12px; }
   </style>
 </head>
 <body>
+
   <div class="topbar">
-    <button class="theme-toggle" type="button" id="themeToggle" aria-label="Cambiar tema">
+    <button class="theme-toggle" type="button" id="themeToggle" aria-label="Alternar tema">
       <i class="fas fa-moon" aria-hidden="true"></i>
       <span id="themeToggleLabel">Oscuro</span>
     </button>
   </div>
+
   <div class="container">
     <header class="header">
       <div class="course-main">
@@ -578,7 +350,7 @@
         <div class="meta-row">
           <div class="meta-pill">
             <i class="fas fa-user-group" aria-hidden="true"></i>
-            Jóvenes universitarios (18–25 años)
+            Jóvenes universitarios
           </div>
           <div class="meta-pill">
             <i class="fas fa-clock" aria-hidden="true"></i>
@@ -586,106 +358,92 @@
           </div>
           <div class="meta-pill">
             <i class="fas fa-layer-group" aria-hidden="true"></i>
-            4 módulos · actividades prácticas
+            4 módulos + práctico
           </div>
         </div>
       </div>
-
-      
-
-      
     </header>
 
     <main>
-      <div class="tabs">
-        <button class="tab-btn active" data-tab="clases">Clases</button>
-        <button class="tab-btn" data-tab="sobre">Sobre el curso</button>
+      <!-- Botones de Navegación -->
+      <div class="tabs" role="tablist">
+        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-clases" id="btn-clases">Clases</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-sobre" id="btn-sobre">Sobre el curso</button>
       </div>
 
       <div class="tab-content">
-        <!-- CLASES -->
-        <section class="tab-panel active" id="tab-clases">
+        
+        <!-- CONTENIDO: CLASES -->
+        <section class="tab-panel active" id="tab-clases" role="tabpanel" aria-labelledby="btn-clases">
 
           <!-- MÓDULO 0 -->
           <article class="module open">
-            <div class="module-header">
+            <div class="module-header" role="button" aria-expanded="true" aria-controls="mod-0-list">
               <h2 class="module-title">
                 <span>Módulo 0</span> Introducción
               </h2>
-              <button class="module-toggle" type="button" aria-expanded="true">
-                <i class="fas fa-angle-right module-toggle-icon" aria-hidden="true"></i>
-                <span class="sr-only">Mostrar u ocultar módulo</span>
-              </button>
+              <div class="module-toggle"><i class="fas fa-angle-right"></i></div>
             </div>
-            <div class="class-list">
+            <div class="class-list" id="mod-0-list">
               <div class="class-item">
-                <div class="class-left-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
+                <div class="class-left-icon"><i class="fas fa-play"></i></div>
                 <div class="class-main">
                   <div class="class-title">Bienvenida y qué aprenderás</div>
-                  <div class="class-meta">De qué va este curso, cómo te puede ayudar y visión general del camino que seguirás con tus finanzas.</div>
+                  <div class="class-meta">De qué va este curso, cómo te puede ayudar y visión general del camino.</div>
                 </div>
                 <div class="class-video">
                   <div class="video-aspect">
                     <iframe
-                      src="https://www.youtube-nocookie.com/embed/FzYbaHAcwsE?rel=0&modestbranding=1&controls=0&iv_load_policy=3&playsinline=1"
-                      title="Video de bienvenida (demo)"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowfullscreen
+                      src="https://www.youtube-nocookie.com/embed/FzYbaHAcwsE?rel=0&modestbranding=1&controls=1&iv_load_policy=3&playsinline=1"
+                      title="Video de bienvenida"
                       loading="lazy"
-                    ></iframe>
+                      allowfullscreen>
+                    </iframe>
                   </div>
                 </div>
-                <div>
-                  <span class="class-duration">03:00</span>
-                </div>
+                <div><span class="class-duration">03:00</span></div>
               </div>
             </div>
           </article>
 
           <!-- MÓDULO 1 -->
           <article class="module open">
-            <div class="module-header">
+            <div class="module-header" role="button" aria-expanded="true" aria-controls="mod-1-list">
               <h2 class="module-title">
                 <span>Módulo 1</span> Tu dinero, tus reglas
               </h2>
-              <button class="module-toggle" type="button" aria-expanded="true">
-                <i class="fas fa-angle-right module-toggle-icon" aria-hidden="true"></i>
-                <span class="sr-only">Mostrar u ocultar módulo</span>
-              </button>
+              <div class="module-toggle"><i class="fas fa-angle-right"></i></div>
             </div>
-            <div class="class-list">
+            <div class="class-list" id="mod-1-list">
               <div class="class-item">
-                <div class="class-left-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
+                <div class="class-left-icon"><i class="fas fa-play"></i></div>
                 <div class="class-main">
                   <div class="class-title">¿Qué son ingresos y gastos?</div>
-                  <div class="class-meta">Conceptos básicos pero explicados a tu lenguaje.</div>
+                  <div class="class-meta">Conceptos básicos explicados a tu lenguaje.</div>
                 </div>
                 <div class="class-video">
                   <div class="video-aspect">
                     <iframe
-                      src="https://www.youtube-nocookie.com/embed/hSaIifs9Qmo?rel=0&modestbranding=1&controls=0&iv_load_policy=3&playsinline=1"
-                      title="¿Qué son ingresos y gastos?"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowfullscreen
+                      src="https://www.youtube-nocookie.com/embed/hSaIifs9Qmo?rel=0&modestbranding=1&controls=1&iv_load_policy=3&playsinline=1"
+                      title="Ingresos y gastos"
                       loading="lazy"
-                    ></iframe>
+                      allowfullscreen>
+                    </iframe>
                   </div>
                 </div>
-                <div>
-                  <span class="class-duration">06:00</span>
-                </div>
+                <div><span class="class-duration">06:00</span></div>
               </div>
 
               <div class="class-item">
-                <div class="class-left-icon"><i class="fas fa-tasks" aria-hidden="true"></i></div>
+                <div class="class-left-icon"><i class="fas fa-tasks"></i></div>
                 <div class="class-main">
                   <div class="class-title">Actividad 1: Detective de gastos</div>
-                  <div class="class-meta">Reto para registrar en qué se te va el dinero durante la semana.</div>
+                  <div class="class-meta">Reto para registrar en qué se te va el dinero.</div>
                 </div>
                 <div>
                   <span class="class-duration">02:00</span>
-                  <a href="https://marcos2099xx.github.io/modulo1-detective-de-gastos/" class="class-link-btn">
-                    <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Abrir
+                  <a href="https://marcos2099xx.github.io/modulo1-detective-de-gastos/" target="_blank" rel="noopener noreferrer" class="class-link-btn">
+                    <i class="fas fa-arrow-up-right-from-square"></i> Abrir
                   </a>
                 </div>
               </div>
@@ -693,14 +451,13 @@
               <div class="class-item">
                 <div class="class-left-icon"><i class="fas fa-tasks"></i></div>
                 <div class="class-main">
-                  <div class="class-title">Actividad 2: Bienestar financiero y hábitos</div>
-                  <div class="class-meta">Mini test + video + reflexión en foro sobre tus creencias del dinero.</div>
+                  <div class="class-title">Actividad 2: Bienestar financiero</div>
+                  <div class="class-meta">Mini test y reflexión sobre tus creencias del dinero.</div>
                 </div>
                 <div>
-                  <span class="class-duration">~30 min</span>
-                  <!-- ENLACE REAL A TU PÁGINA EXISTENTE -->
-                  <a href="https://marcos2099xx.github.io/modulo1-actividad2-bienestar-financiero/" class="class-link-btn">
-                    <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Abrir
+                  <span class="class-duration">30 min</span>
+                  <a href="https://marcos2099xx.github.io/modulo1-actividad2-bienestar-financiero/" target="_blank" rel="noopener noreferrer" class="class-link-btn">
+                    <i class="fas fa-arrow-up-right-from-square"></i> Abrir
                   </a>
                 </div>
               </div>
@@ -709,26 +466,23 @@
 
           <!-- MÓDULO 2 -->
           <article class="module">
-            <div class="module-header">
+            <div class="module-header" role="button" aria-expanded="false" aria-controls="mod-2-list">
               <h2 class="module-title">
                 <span>Módulo 2</span> Presupuesta sin volverte loco
               </h2>
-              <button class="module-toggle" type="button" aria-expanded="false">
-                <i class="fas fa-angle-right module-toggle-icon" aria-hidden="true"></i>
-                <span class="sr-only">Mostrar u ocultar módulo</span>
-              </button>
+              <div class="module-toggle"><i class="fas fa-angle-right"></i></div>
             </div>
-            <div class="class-list">
+            <div class="class-list" id="mod-2-list">
               <div class="class-item">
-                <div class="class-left-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
+                <div class="class-left-icon"><i class="fas fa-play"></i></div>
                 <div class="class-main">
                   <div class="class-title">El método 50/30/20 explicado fácil</div>
                   <div class="class-meta">Lo esencial, lo que quieres y lo que puedes guardar.</div>
                 </div>
                 <div>
                   <span class="class-duration">07:00</span>
-                  <button class="class-link-btn" type="button" disabled aria-disabled="true">
-                    <i class="fas fa-lock" aria-hidden="true"></i> Próximamente
+                  <button class="class-link-btn" disabled>
+                    <i class="fas fa-lock"></i> Próximamente
                   </button>
                 </div>
               </div>
@@ -739,9 +493,9 @@
                   <div class="class-meta">Plantilla guiada para crear tu presupuesto mensual.</div>
                 </div>
                 <div>
-                  <span class="class-duration">~45 min</span>
-                  <button class="class-link-btn" type="button" disabled aria-disabled="true">
-                    <i class="fas fa-lock" aria-hidden="true"></i> Próximamente
+                  <span class="class-duration">45 min</span>
+                  <button class="class-link-btn" disabled>
+                    <i class="fas fa-lock"></i> Próximamente
                   </button>
                 </div>
               </div>
@@ -750,39 +504,36 @@
 
           <!-- MÓDULO 3 -->
           <article class="module">
-            <div class="module-header">
+            <div class="module-header" role="button" aria-expanded="false" aria-controls="mod-3-list">
               <h2 class="module-title">
                 <span>Módulo 3</span> ¿A dónde se fue mi dinero?
               </h2>
-              <button class="module-toggle" type="button" aria-expanded="false">
-                <i class="fas fa-angle-right module-toggle-icon" aria-hidden="true"></i>
-                <span class="sr-only">Mostrar u ocultar módulo</span>
-              </button>
+              <div class="module-toggle"><i class="fas fa-angle-right"></i></div>
             </div>
-            <div class="class-list">
+            <div class="class-list" id="mod-3-list">
               <div class="class-item">
-                <div class="class-left-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
+                <div class="class-left-icon"><i class="fas fa-play"></i></div>
                 <div class="class-main">
                   <div class="class-title">Qué son los gastos hormiga</div>
                   <div class="class-meta">Cómo se cuelan en tu día a día sin que los notes.</div>
                 </div>
                 <div>
                   <span class="class-duration">06:30</span>
-                  <button class="class-link-btn" type="button" disabled aria-disabled="true">
-                    <i class="fas fa-lock" aria-hidden="true"></i> Próximamente
+                  <button class="class-link-btn" disabled>
+                    <i class="fas fa-lock"></i> Próximamente
                   </button>
                 </div>
               </div>
               <div class="class-item">
-                <div class="class-left-icon"><i class="fas fa-tasks" aria-hidden="true"></i></div>
+                <div class="class-left-icon"><i class="fas fa-tasks"></i></div>
                 <div class="class-main">
                   <div class="class-title">Mini reto: Suma tus gastos hormiga</div>
-                  <div class="class-meta">Ejercicio para ver cuánto podrías ahorrar solo ajustando detalles.</div>
+                  <div class="class-meta">Ejercicio para ver cuánto podrías ahorrar.</div>
                 </div>
                 <div>
-                  <span class="class-duration">~30 min</span>
-                  <button class="class-link-btn" type="button" disabled aria-disabled="true">
-                    <i class="fas fa-lock" aria-hidden="true"></i> Próximamente
+                  <span class="class-duration">30 min</span>
+                  <button class="class-link-btn" disabled>
+                    <i class="fas fa-lock"></i> Próximamente
                   </button>
                 </div>
               </div>
@@ -791,39 +542,36 @@
 
           <!-- MÓDULO 4 -->
           <article class="module">
-            <div class="module-header">
+            <div class="module-header" role="button" aria-expanded="false" aria-controls="mod-4-list">
               <h2 class="module-title">
-                <span>Módulo 4</span> Ahorra con propósito, no por obligación
+                <span>Módulo 4</span> Ahorra con propósito
               </h2>
-              <button class="module-toggle" type="button" aria-expanded="false">
-                <i class="fas fa-angle-right module-toggle-icon" aria-hidden="true"></i>
-                <span class="sr-only">Mostrar u ocultar módulo</span>
-              </button>
+              <div class="module-toggle"><i class="fas fa-angle-right"></i></div>
             </div>
-            <div class="class-list">
+            <div class="class-list" id="mod-4-list">
               <div class="class-item">
-                <div class="class-left-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
+                <div class="class-left-icon"><i class="fas fa-play"></i></div>
                 <div class="class-main">
                   <div class="class-title">Metas financieras SMART</div>
                   <div class="class-meta">Cómo plantear metas claras, realistas y motivadoras.</div>
                 </div>
                 <div>
                   <span class="class-duration">08:00</span>
-                  <button class="class-link-btn" type="button" disabled aria-disabled="true">
-                    <i class="fas fa-lock" aria-hidden="true"></i> Próximamente
+                  <button class="class-link-btn" disabled>
+                    <i class="fas fa-lock"></i> Próximamente
                   </button>
                 </div>
               </div>
               <div class="class-item">
-                <div class="class-left-icon"><i class="fas fa-tasks" aria-hidden="true"></i></div>
+                <div class="class-left-icon"><i class="fas fa-tasks"></i></div>
                 <div class="class-main">
-                  <div class="class-title">Actividad final: Tu plan financiero personal</div>
-                  <div class="class-meta">Presupuesto, metas y hábitos integrados en un solo documento.</div>
+                  <div class="class-title">Actividad final: Tu plan personal</div>
+                  <div class="class-meta">Presupuesto, metas y hábitos en un solo documento.</div>
                 </div>
                 <div>
-                  <span class="class-duration">~1 h</span>
-                  <button class="class-link-btn" type="button" disabled aria-disabled="true">
-                    <i class="fas fa-lock" aria-hidden="true"></i> Próximamente
+                  <span class="class-duration">1 h</span>
+                  <button class="class-link-btn" disabled>
+                    <i class="fas fa-lock"></i> Próximamente
                   </button>
                 </div>
               </div>
@@ -832,156 +580,122 @@
 
         </section>
 
-        <!-- SOBRE EL CURSO -->
-        <section class="tab-panel" id="tab-sobre">
+        <!-- CONTENIDO: SOBRE EL CURSO -->
+        <section class="tab-panel" id="tab-sobre" role="tabpanel" aria-labelledby="btn-sobre">
           <h2 class="section-title">Requerimientos</h2>
           <ul class="requirement-list">
-            <li>
-              <i class="fas fa-square" aria-hidden="true"></i>
-              <span>No necesitas conocimientos previos de finanzas para tomar este curso.</span>
-            </li>
-            <li>
-              <i class="fas fa-square" aria-hidden="true"></i>
-              <span>Solo requieres acceso a internet y, de preferencia, una computadora o tablet para trabajar tus actividades.</span>
-            </li>
-            <li>
-              <i class="fas fa-square" aria-hidden="true"></i>
-              <span>Se recomienda contar con una app de notas, Excel, Google Sheets o similar para los ejercicios de presupuesto y registro de gastos.</span>
-            </li>
+            <li><i class="fas fa-square"></i> No necesitas conocimientos previos de finanzas.</li>
+            <li><i class="fas fa-square"></i> Acceso a internet y dispositivo (PC/Tablet recomendado).</li>
+            <li><i class="fas fa-square"></i> App de notas, Excel o Google Sheets para ejercicios.</li>
           </ul>
 
           <h2 class="section-title">Descripción del curso</h2>
           <p class="paragraph">
             Este curso está pensado para jóvenes universitarios que están comenzando a manejar su propio dinero:
-            becas, apoyos familiares, trabajos de medio tiempo o pequeños emprendimientos. El objetivo es que
-            tengas herramientas simples y útiles para dejar de sentir que tu dinero “se va solo” y puedas empezar
-            a tomar decisiones más conscientes.
+            becas, apoyos familiares o trabajos de medio tiempo. El objetivo es que tengas herramientas simples 
+            para dejar de sentir que tu dinero “se va solo”.
           </p>
           <p class="paragraph">
-            A lo largo de cuatro módulos, irás desde lo más básico hasta lo más práctico: entender qué pasa con
-            tu dinero, organizarlo en un presupuesto, detectar gastos hormiga y, finalmente, diseñar metas de
-            ahorro con sentido para ti. Todo con actividades breves, retos reales y espacios de reflexión.
+            A lo largo de cuatro módulos, irás desde lo más básico hasta diseñar metas de ahorro reales.
+            Todo con actividades breves y retos prácticos.
           </p>
 
           <h2 class="section-title">¿Qué aprenderás?</h2>
           <ul class="learn-list">
-            <li>
-              <i class="fas fa-check" aria-hidden="true"></i>
-              <span>Identificar tus ingresos y gastos y entender cómo se relacionan con tu bienestar financiero.</span>
-            </li>
-            <li>
-              <i class="fas fa-check" aria-hidden="true"></i>
-              <span>Aplicar un método sencillo de presupuesto (como 50/30/20) adaptado a tu realidad.</span>
-            </li>
-            <li>
-              <i class="fas fa-check" aria-hidden="true"></i>
-              <span>Detectar “gastos hormiga” y diseñar estrategias concretas para reducirlos sin dejar de disfrutar.</span>
-            </li>
-            <li>
-              <i class="fas fa-check" aria-hidden="true"></i>
-              <span>Plantear metas de ahorro alcanzables y construir un plan financiero básico paso a paso.</span>
-            </li>
+            <li><i class="fas fa-check"></i> Identificar ingresos y gastos reales.</li>
+            <li><i class="fas fa-check"></i> Aplicar el método de presupuesto 50/30/20.</li>
+            <li><i class="fas fa-check"></i> Detectar y reducir "gastos hormiga".</li>
+            <li><i class="fas fa-check"></i> Plantear metas de ahorro alcanzables (SMART).</li>
           </ul>
-
-          <h2 class="section-title">¿Cómo se trabaja en este curso?</h2>
+          
+          <h2 class="section-title">Metodología</h2>
           <p class="paragraph">
-            El curso combina microcontenidos (videos cortos, lecturas ligeras, infografías) con retos prácticos
-            y actividades de reflexión. No se trata de memorizar conceptos, sino de aplicarlos en tu propia vida:
-            registrar tus gastos reales, crear tu propio presupuesto, cuestionar tus creencias sobre el dinero y
-            diseñar metas que te emocionen.
-          </p>
-          <p class="paragraph">
-            Todo está pensado para que avances a tu ritmo. Puedes hacer las actividades de manera individual,
-            pero también hay espacios para compartir ideas, dudas y aprendizajes con otras personas que están
-            en la misma etapa que tú.
+            El curso combina microcontenidos (videos cortos) con retos prácticos. No se trata de memorizar,
+            sino de aplicar lo aprendido en tu propia vida financiera inmediatamente.
           </p>
         </section>
+
       </div>
     </main>
   </div>
 
   <script>
-    // Tema claro/oscuro
-    const rootEl = document.documentElement;
-    const themeBtn = document.getElementById("themeToggle");
-    const themeLabel = document.getElementById("themeToggleLabel");
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // --- LÓGICA DE TABS (Clases vs Sobre) ---
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      const tabPanels = document.querySelectorAll(".tab-panel");
 
-    const setToggleVisual = (t) => {
-      if (!themeBtn) return;
-      const icon = themeBtn.querySelector("i");
-      if (t === "light") {
-        icon.className = "fas fa-sun";
-        themeLabel && (themeLabel.textContent = "Claro");
-      } else {
-        icon.className = "fas fa-moon";
-        themeLabel && (themeLabel.textContent = "Oscuro");
-      }
-    };
+      tabButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const targetId = btn.getAttribute("aria-controls");
 
-    const applyTheme = (t) => {
-      rootEl.dataset.theme = t;
-      try { localStorage.setItem("theme", t); } catch {}
-      setToggleVisual(t);
-    };
+          // Desactivar todos
+          tabButtons.forEach(b => {
+            b.classList.remove("active");
+            b.setAttribute("aria-selected", "false");
+          });
+          tabPanels.forEach(p => p.classList.remove("active"));
 
-    const savedTheme = (() => { try { return localStorage.getItem("theme"); } catch { return null; } })();
-    if (savedTheme === "light" || savedTheme === "dark") {
-      applyTheme(savedTheme);
-    } else {
-      const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
-      setToggleVisual(prefersLight ? "light" : "dark");
-    }
-
-    themeBtn && themeBtn.addEventListener("click", () => {
-      const current = rootEl.dataset.theme || (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-      applyTheme(current === "light" ? "dark" : "light");
-    });
-
-    // Tabs
-    const tabButtons = document.querySelectorAll(".tab-btn");
-    const tabPanels  = document.querySelectorAll(".tab-panel");
-
-    tabButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const target = btn.dataset.tab;
-
-        tabButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-
-        tabPanels.forEach(panel => {
-          panel.classList.toggle("active", panel.id === `tab-${target}`);
+          // Activar selección
+          btn.classList.add("active");
+          btn.setAttribute("aria-selected", "true");
+          document.getElementById(targetId).classList.add("active");
         });
       });
-    });
 
-    // Módulos desplegables accesibles
-    document.querySelectorAll(".module").forEach((module, idx) => {
-      const header = module.querySelector(".module-header");
-      const toggleBtn = module.querySelector(".module-toggle");
-      const listEl = module.querySelector(".class-list");
-      if (!header || !listEl) return;
-
-      const listId = listEl.id || `module-${idx}-list`;
-      listEl.id = listId;
-      if (toggleBtn) toggleBtn.setAttribute("aria-controls", listId);
-
-      const setState = (open) => {
-        module.classList.toggle("open", open);
-        if (toggleBtn) toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
-      };
-
-      setState(module.classList.contains("open"));
-
-      // Click en botón
-      toggleBtn && toggleBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        setState(!module.classList.contains("open"));
+      // --- LÓGICA DE ACORDEÓN (Módulos) ---
+      document.querySelectorAll(".module-header").forEach(header => {
+        header.addEventListener("click", () => {
+          const module = header.parentElement;
+          const isOpen = module.classList.contains("open");
+          
+          // Alternar clase visual
+          module.classList.toggle("open");
+          
+          // Actualizar accesibilidad
+          header.setAttribute("aria-expanded", !isOpen);
+        });
       });
 
-      // Click en header (fuera del botón)
-      header.addEventListener("click", (e) => {
-        if (e.target.closest(".module-toggle")) return;
-        setState(!module.classList.contains("open"));
+      // --- LÓGICA DE TEMA (Dark / Light) ---
+      const themeBtn = document.getElementById("themeToggle");
+      const themeIcon = themeBtn.querySelector("i");
+      const themeLabel = document.getElementById("themeToggleLabel");
+      const htmlEl = document.documentElement;
+
+      function updateThemeUI(theme) {
+        if (theme === "light") {
+          htmlEl.setAttribute("data-theme", "light");
+          themeIcon.className = "fas fa-sun";
+          themeLabel.textContent = "Claro";
+        } else {
+          htmlEl.removeAttribute("data-theme"); // Default es dark en CSS
+          themeIcon.className = "fas fa-moon";
+          themeLabel.textContent = "Oscuro";
+        }
+      }
+
+      // 1. Cargar preferencia guardada o del sistema
+      const savedTheme = localStorage.getItem("theme");
+      const systemPrefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+      
+      let currentTheme = "dark";
+      if (savedTheme) {
+        currentTheme = savedTheme;
+      } else if (systemPrefersLight) {
+        currentTheme = "light";
+      }
+
+      updateThemeUI(currentTheme);
+
+      // 2. Manejar clic en botón
+      themeBtn.addEventListener("click", () => {
+        const isLight = htmlEl.getAttribute("data-theme") === "light";
+        const newTheme = isLight ? "dark" : "light";
+        
+        updateThemeUI(newTheme);
+        localStorage.setItem("theme", newTheme);
       });
     });
   </script>
